@@ -114,7 +114,7 @@ pub fn merge<T, F: FnMut(&T, &T) -> bool>(
                 self.dst = left.add(!consume_left as usize);
                 self.end = right.add(consume_left as usize);
 
-                if self.dst as *const T == left_end || self.end as *const T == right_end {
+                if std::ptr::eq(self.dst, left_end) || std::ptr::eq(self.end, right_end) {
                     break;
                 }
             }
